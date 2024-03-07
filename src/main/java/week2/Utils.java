@@ -35,7 +35,7 @@ public class Utils {
             case "^":
                 return Math.pow(v2, v1);
             case "√":
-                return Math.pow(v2, 1 / v1);
+                return Math.pow(v1, 0.5);
             default:
                 return -1;
         }
