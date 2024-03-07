@@ -29,7 +29,7 @@ public class Stack<T> {
 
     public T peek() {
         if (this.size == 0) {
-            throw new NoSuchElementException("You cannot peek an empty stack!");
+            throw new NoSuchElementException("You cannot peek from an empty stack!");
         }
 
         return this.top.data;

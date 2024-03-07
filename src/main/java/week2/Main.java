@@ -14,5 +14,14 @@ public class Main {
         System.out.println(stack.pop());
         System.out.println(stack.pop());
         System.out.println(stack.pop());
+
+        Queue<String> queue = new Queue<>();
+        queue.enqueue("Basar");
+        queue.enqueue("Daniel");
+        queue.enqueue("Stela");
+        queue.enqueue("Eldin");
+
+        System.out.println(queue.dequeue());
+        System.out.println(queue.peek());
     }
 }
