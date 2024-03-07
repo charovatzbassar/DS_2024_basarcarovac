@@ -14,6 +14,7 @@ public class QueueBasedStack<T> {
         this.q2.enqueue(data);
 
         int q1Size = this.q1.size();
+
         for (int i = 0; i < q1Size; i++) {
             this.q2.enqueue(this.q1.dequeue());
         }

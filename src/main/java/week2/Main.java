@@ -23,5 +23,7 @@ public class Main {
 
         System.out.println(queue.dequeue());
         System.out.println(queue.peek());
+
+        System.out.println(TwoStackAlgorithm.calculate("( ( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) ) - ( 5 / 4 ) )"));
     }
 }
