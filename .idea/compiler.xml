@@ -10,6 +10,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="data-structures" />
+        <module name="DS_2024_basarcarovac" />
       </profile>
     </annotationProcessing>
   </component>
