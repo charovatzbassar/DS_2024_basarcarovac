@@ -30,6 +30,18 @@ public class BinaryHeap<Data extends Comparable<Data>> {
         return max;
     }
 
+    public int size() {
+        return this.size;
+    }
+
+    public boolean isEmpty() {
+        return this.size == 0;
+    }
+
+    public Data findMax() {
+        return this.pq[1];
+    }
+
     private void sink(int k) {
         while (2 * k <= this.size) {
             int j = 2*k;
