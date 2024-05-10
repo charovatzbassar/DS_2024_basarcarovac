@@ -22,7 +22,7 @@ public class BinaryHeap<Data extends Comparable<Data>> {
 
         // 1/4 of size, half the size
         if (this.size == this.pq.length / 4 && this.size > 0) {
-            resize(this.size / 2);
+            resize(this.pq.length / 2);
         }
 
         sink(1);
@@ -45,7 +45,7 @@ public class BinaryHeap<Data extends Comparable<Data>> {
     private void sink(int k) {
         while (2 * k <= this.size) {
             int j = 2*k;
-            if (less(j,j + 1) && j < this.size) {
+            if (j < this.size && less(j,j + 1)) {
                 j++;
             }
 
