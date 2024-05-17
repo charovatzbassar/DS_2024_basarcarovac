@@ -29,3 +29,4 @@ bin/
 .DS_Store
 
 IP2LOCATION.csv
+raw_phonebook_data.csv
