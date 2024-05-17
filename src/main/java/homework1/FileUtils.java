@@ -1,8 +1,7 @@
 package homework1;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Arrays;
 
 public class FileUtils {
 
@@ -13,10 +12,30 @@ public class FileUtils {
             return new Entry(line[0], line[1], line[2], line[3], line[4], line[5]);
         }).toList().toArray(new Entry[0]);
         reader.close();
-        return entries;
+        return Arrays.copyOfRange(entries, 1, entries.length);
     }
 
     public static void writeToFile(Entry[] entries, String filePath) throws IOException {
-        // implement the actual logic
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+
+
+
+        Arrays.stream(entries).forEach(entry -> {
+            try {
+                String newEntryString = "\n";
+               newEntryString = newEntryString.concat(entry.getName()).concat(";")
+                       .concat(entry.getStreetAddress()).concat(";")
+                       .concat(entry.getCity()).concat(";")
+                       .concat(entry.getPostcode()).concat(";")
+                       .concat(entry.getCountry()).concat(";")
+                       .concat(entry.getPhoneNumber());
+
+                writer.write(newEntryString);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        });
+
+        writer.close();
     }
 }
