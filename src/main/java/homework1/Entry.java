@@ -67,6 +67,16 @@ public class Entry implements Comparable<Entry> {
 
     @Override
     public int compareTo(Entry other) {
-        return Integer.compare(this.name.compareTo(other.name), 0);
+        return Integer.compare(this.name.compareTo(other.getName()), 0);
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + "\n" +
+                "Street address: " + streetAddress + "\n" +
+                "City: " + city + "\n" +
+                "Postal code: " + postcode + "\n" +
+                "Country: " + country + "\n" +
+                "Phone number: " + phoneNumber + "\n";
     }
 }
