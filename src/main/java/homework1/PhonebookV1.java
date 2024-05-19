@@ -19,56 +19,78 @@ public class PhonebookV1 {
         };
     }
 
+
     public static void main(String[] args) throws IOException, IllegalAccessException, NoSuchFieldException {
         String file = "raw_phonebook_data.csv";
         String sortedFile = "raw_phonebook_data_sorted.csv";
+        boolean sortingFlag = true;
+
         System.out.println("Loading the entries...");
         Entry[] entries = FileUtils.readFile(file);
+
         Comparator<Entry> comparator = null;
         String field = "";
+        String searchTerm = "";
 
-        while (comparator == null) {
-            System.out.println("Which field you want to search by?");
-            field = scanner.nextLine();
-            comparator = getComparator(field);
+        while (!searchTerm.equals("-1")) {
 
-            if (comparator == null) {
-                System.out.println("The field " + field + " does not exist.");
+            if (sortingFlag) {
+                System.out.println("Which field you want to search by?");
+
+                while (comparator == null) {
+                    field = scanner.nextLine();
+                    comparator = getComparator(field);
+
+                    if (comparator == null) {
+                        System.out.println("The field " + field + " does not exist. Please try again.");
+                    }
+                }
+
+                System.out.println("Sorting the entries...");
+                MergeSort.sort(entries, comparator);
+                System.out.println("Saving the sorted file...");
+                FileUtils.writeToFile(entries, sortedFile);
+                System.out.println("============================");
+                System.out.println("System is ready.\n");
+                sortingFlag = false;
             }
-        }
+            System.out.println("Enter the search term for " + field + ", or -1 to exit: ");
 
-        System.out.println("Sorting the entries...");
-        MergeSort.sort(entries, comparator);
-        System.out.println("Saving the sorted file...");
-        FileUtils.writeToFile(entries, sortedFile);
-        System.out.println("============================");
-        System.out.println("System is ready.\n");
-
-        while (true) {
-            System.out.println("Enter the search term, or -1 to exit: ");
-
-            String searchTerm = scanner.nextLine();
+            searchTerm = scanner.nextLine();
 
             if (searchTerm.equals("-1")) {
                 System.out.println("Thank you for using the phonebook.");
-                break;
+            } else {
+                int[] search = BinarySearch.search(entries, searchTerm, field);
+
+                if (search[0] == -1 && search[1] == -1) {
+                    System.out.println("No entries found under that search term.");
+                } else {
+                    int entriesFound = search[1] - search[0] + 1;
+
+
+                    for (int i = search[0]; i <= search[1]; i++) {
+                        System.out.println(entries[i]);
+                    }
+
+                    System.out.println("Entries found: " + entriesFound + "\n");
+                }
+
+
+                System.out.println("Do you want to choose another field?\n" +
+                        "0 - yes\n" +
+                        "Any - no");
+                String option;
+                option = scanner.nextLine();
+
+                if (option.equals("0")) {
+                    sortingFlag = true;
+                    comparator = null;
+                    field = "";
+                }
             }
 
-            int[] search = BinarySearch.search(entries, searchTerm, field);
 
-            if (search[0] == -1 && search[1] == -1) {
-                System.out.println("No entries found under that search term.");
-                continue;
-            }
-
-            int entriesFound = search[1] - search[0] + 1;
-
-
-            for (int i = search[0]; i <= search[1]; i++) {
-                System.out.println(entries[i]);
-            }
-
-            System.out.println("Entries found: " + entriesFound + "\n");
         }
 
     }
