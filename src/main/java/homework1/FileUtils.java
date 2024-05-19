@@ -16,7 +16,7 @@ public class FileUtils {
     }
 
     public static void writeToFile(Entry[] entries, String filePath) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
 
 
