@@ -2,7 +2,6 @@ package homework1;
 
 
 import java.lang.reflect.Field;
-import java.util.Comparator;
 
 public class BinarySearch {
     public static int[] search(Entry[] entries, String searchTerm, String field) throws NoSuchFieldException, IllegalAccessException {
@@ -10,6 +9,15 @@ public class BinarySearch {
 
         indices[0] = findFirstOccurrence(entries, searchTerm, field);
         indices[1] = findLastOccurrence(entries, searchTerm, field);
+
+        return indices;
+    }
+
+    public static int[] search(Entry[] entries, String searchableName) throws NoSuchFieldException, IllegalAccessException {
+        int[] indices = new int[2];
+
+        indices[0] = findFirstOccurrence(entries, searchableName, "name");
+        indices[1] = findLastOccurrence(entries, searchableName, "name");
 
         return indices;
     }
