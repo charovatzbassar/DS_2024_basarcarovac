@@ -9,7 +9,6 @@ public class Scheduler {
     public static void scheduleAndRun(ArrayList<Process> processes) {
         int t = 0;
         int executedProcesses = 0;
-        int waitingTimeSum = 0;
         ProcessQueue pq = new ProcessQueue();
         Process currentProcess = null;
         Process pausedProcess = null;
@@ -49,8 +48,6 @@ public class Scheduler {
         } while (executedProcesses != processes.size());
 
         System.out.println("Total time: " + t);
-        System.out.println(executedProcesses);
-
     }
 
     public static void main(String[] args) {
