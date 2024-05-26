@@ -12,11 +12,16 @@ public class Scheduler {
         Process currentProcess = null;
         Process pausedProcess = null;
 
-        while (true) {
+        do {
             int finalT = t;
             List<Process> arrivedProcesses = processes.stream().filter(process -> process.getArriveTime() == finalT).toList();
             if (!arrivedProcesses.isEmpty()) {
                 arrivedProcesses.forEach(pq::addProcess);
+
+                if (currentProcess != null && currentProcess.getPriority() > pq.peekNextProcess().getPriority()) {
+                    pausedProcess = currentProcess;
+                    currentProcess = pq.runNextProcess();
+                }
             }
 
             if (currentProcess == null) currentProcess = pq.runNextProcess();
@@ -25,12 +30,19 @@ public class Scheduler {
             System.out.println("t: " + finalT + " | " + (currentProcess == null ? "no process" : currentProcess.getProcessName()));
 
             currentProcess.setBurstTime(currentProcess.getBurstTime() - 1);
-            if (currentProcess.getBurstTime() == 0) currentProcess = null;
+
+            if (currentProcess.getBurstTime() == 0) {
+                currentProcess = null;
+
+                if (pausedProcess != null) {
+                    currentProcess = pausedProcess;
+                    pausedProcess = null;
+                }
+            }
 
 
             t++;
-            if (currentProcess == null && pq.length == 0) break;
-        }
+        } while (currentProcess != null || pq.length != 0);
 
         System.out.println("Total time: " + t);
 
