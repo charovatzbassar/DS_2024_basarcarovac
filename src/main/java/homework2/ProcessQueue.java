@@ -4,22 +4,67 @@ public class ProcessQueue {
     public Process[] pq = new Process[2];
     public int length = 0;
 
-    /* Add a new process into the priority queue */
     public void addProcess(Process process) {
-        // your code here
+        if (this.pq.length == this.length + 1) {
+            resize(2 * this.pq.length);
+        }
+        pq[++this.length] = process;
+        swim(this.length);
     }
 
-    /* Return and remove the next Process that should be run */
     public Process runNextProcess() {
-        // your code here (next line is a placeholder)
-        return null;
+        Process max = pq[1];
+
+        swap(1, this.length);
+        pq[this.length] = null;
+        this.length--;
+
+        if (this.length == this.pq.length / 4 && this.length > 0) {
+            resize(this.pq.length / 2);
+        }
+
+        sink(1);
+        return max;
     }
 
-    /* Return the next Process that should be run (but do not delete it) */
     public Process peekNextProcess() {
-        // your code here (next line is a placeholder)
-        return null;
+        return this.pq[1];
     }
 
-    /* Implement any other helper methods, if you need them. */
+    private void swim(int k) {
+        while (k > 1 && higherPriority(k / 2, k)) {
+            swap(k, k / 2);
+            k /= 2;
+        }
+    }
+
+    private void sink(int k) {
+        while (2 * k <= this.length) {
+            int j = 2*k;
+            if (j < this.length && higherPriority(j,j + 1)) {
+                j++;
+            }
+
+            if (!higherPriority(k, j)) break;
+
+            swap(k, j);
+            k = j;
+        }
+    }
+
+    private boolean higherPriority(int i, int j) {
+        return this.pq[i].compareTo(pq[j]) > 0;
+    }
+
+    private void swap(int i, int j) {
+        Process tmp = this.pq[i];
+        this.pq[i] = this.pq[j];
+        this.pq[j] = tmp;
+    }
+
+    private void resize(int capacity) {
+        Process[] copy = new Process[capacity];
+        if (this.length >= 0) System.arraycopy(pq, 1, copy, 1, this.length);
+        this.pq = copy;
+    }
 }
