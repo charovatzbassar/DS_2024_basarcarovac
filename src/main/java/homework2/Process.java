@@ -3,10 +3,10 @@ package homework2;
 public class Process implements Comparable<Process> {
     private String processName;
     private int priority;
-    private double burstTime;
-    private double arriveTime;
+    private int burstTime;
+    private int arriveTime;
 
-    public Process(String processName, int priority, double burstTime, double arriveTime) {
+    public Process(String processName, int priority, int burstTime, int arriveTime) {
         this.processName = processName;
         this.priority = priority;
         this.burstTime = burstTime;
@@ -33,7 +33,7 @@ public class Process implements Comparable<Process> {
         return burstTime;
     }
 
-    public void setBurstTime(double burstTime) {
+    public void setBurstTime(int burstTime) {
         this.burstTime = burstTime;
     }
 
@@ -41,7 +41,7 @@ public class Process implements Comparable<Process> {
         return arriveTime;
     }
 
-    public void setArriveTime(double arriveTime) {
+    public void setArriveTime(int arriveTime) {
         this.arriveTime = arriveTime;
     }
 

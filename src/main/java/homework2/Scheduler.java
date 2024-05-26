@@ -1,13 +1,27 @@
 package homework2;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Scheduler {
 
     public static void scheduleAndRun(ArrayList<Process> processes) {
+        int t = 0;
         ProcessQueue pq = new ProcessQueue();
-        processes.forEach(pq::addProcess);
-        System.out.println(pq.peekNextProcess().getPriority());
+        Process currentProcess = null;
+
+        while (true) {
+            int finalT = t;
+            List<Process> arrivedProcesses = processes.stream().filter(process -> process.getArriveTime() == finalT).toList();
+            if (!arrivedProcesses.isEmpty()) arrivedProcesses.forEach(pq::addProcess);
+
+            System.out.println("Time: " + finalT + " Processes: " + arrivedProcesses);
+
+            t++;
+            if (finalT == 50) break;
+        }
+
     }
 
     public static void main(String[] args) {
