@@ -29,7 +29,7 @@ public class Process implements Comparable<Process> {
         this.priority = priority;
     }
 
-    public double getBurstTime() {
+    public int getBurstTime() {
         return burstTime;
     }
 
@@ -37,7 +37,7 @@ public class Process implements Comparable<Process> {
         this.burstTime = burstTime;
     }
 
-    public double getArriveTime() {
+    public int getArriveTime() {
         return arriveTime;
     }
 
