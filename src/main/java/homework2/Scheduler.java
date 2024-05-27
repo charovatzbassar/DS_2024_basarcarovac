@@ -9,14 +9,14 @@ public class Scheduler {
     public static void scheduleAndRun(ArrayList<Process> processes) {
         int t = 0;
         int executedProcesses = 0;
-        int finishTimeSum = 0;
         ProcessQueue pq = new ProcessQueue();
         Process currentProcess = null;
         Process pausedProcess = null;
+        int finishTimeSum = 0;
         int burstTimeSum = processes.stream().mapToInt(Process::getBurstTime).sum();
         int arriveTimeSum = processes.stream().mapToInt(Process::getArriveTime).sum();
 
-        do {
+        while (executedProcesses != processes.size()) {
             int finalT = t;
             List<Process> arrivedProcesses = processes.stream().filter(process -> process.getArriveTime() == finalT).toList();
 
@@ -35,7 +35,9 @@ public class Scheduler {
 
             System.out.println("t: " + finalT + " | " + (currentProcess == null ? "no process" : currentProcess.getProcessName()));
 
-            if (currentProcess != null) currentProcess.setBurstTime(currentProcess.getBurstTime() - 1);
+            if (currentProcess != null) {
+                currentProcess.setBurstTime(currentProcess.getBurstTime() - 1);
+            }
 
             if (currentProcess != null && currentProcess.getBurstTime() == 0) {
                 executedProcesses++;
@@ -49,11 +51,10 @@ public class Scheduler {
             }
 
             t++;
-        } while (executedProcesses != processes.size());
+        }
 
-
-        System.out.println("Total time: " + t);
-        System.out.println("Average waiting time: " + ((double)(finishTimeSum - burstTimeSum - arriveTimeSum) / processes.size()));
+        double avgWaitingTime = (double) (finishTimeSum - burstTimeSum - arriveTimeSum) / processes.size();
+        System.out.println("Total time: " + t + "\nAverage waiting time: " + avgWaitingTime);
     }
 
     public static void main(String[] args) {
@@ -63,7 +64,7 @@ public class Scheduler {
         processes.add(new Process("P2", 2, 3, 0));
         processes.add(new Process("P3", 1, 7, 6));
         processes.add(new Process("P4", 3, 4, 11));
-        processes.add(new Process("P5", 2, 2, 12));
+        processes.add(new Process("P5", 2, 2, 24));
 
         scheduleAndRun(processes);
     }
