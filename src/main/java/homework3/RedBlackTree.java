@@ -7,6 +7,7 @@ public class RedBlackTree<Entry> {
     private Node<Entry> root;
     private static final boolean RED = true;
     private static final boolean BLACK = false;
+    private int redEdgeCount = 0;
 
     public ArrayList<Entry> get(String searchableName) {
         Node<Entry> x = root;
@@ -54,15 +55,19 @@ public class RedBlackTree<Entry> {
         Node<Entry> x = root;
 
         int totalEdges = size(x) - 1;
-        int redEdgeCount = 0;
 
-        while (x.left != null) {
-            if (x.left.color == RED) {
-                redEdgeCount++;
-            }
-        }
+        countRedAndBlackEdges(x);
 
         return new int[]{ redEdgeCount, totalEdges - redEdgeCount };
+    }
+
+    private void countRedAndBlackEdges(Node<Entry> n) {
+        if (n == null) return;
+
+        if (n.color == RED) redEdgeCount++;
+
+        countRedAndBlackEdges(n.left);
+        countRedAndBlackEdges(n.right);
     }
 
     private Node<Entry> rotateLeft(Node<Entry> n) {
@@ -100,4 +105,5 @@ public class RedBlackTree<Entry> {
         if (n == null) return 0;
         return n.size;
     }
+
 }
