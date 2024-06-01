@@ -7,17 +7,24 @@ public class RedBlackTree<Entry> {
     private Node<Entry> root;
     private static final boolean RED = true;
     private static final boolean BLACK = false;
-    private int redEdgeCount = 0;
+    private final int[] path = new int[]{0, 0};
 
     public ArrayList<Entry> get(String searchableName) {
         Node<Entry> x = root;
+        path[0] = path[1] = 0;
 
         while (x != null) {
             int cmp = searchableName.compareTo(x.key);
             if (cmp < 0) {
                 x = x.left;
+                if (x.color == RED) {
+                    path[0]++;
+                } else {
+                    path[1]++;
+                }
             } else if (cmp > 0) {
                 x = x.right;
+                path[1]++;
             } else return x.values;
         }
 
@@ -54,21 +61,21 @@ public class RedBlackTree<Entry> {
     public int[] countRedAndBlackEdges() {
         Node<Entry> x = root;
 
-        int totalEdges = size(x) - 1;
+        int redEdgeCount = countRedAndBlackEdges(x);
 
-        countRedAndBlackEdges(x);
-
-        return new int[]{ redEdgeCount, totalEdges - redEdgeCount };
+        return new int[]{ redEdgeCount, size(x) - 1 - redEdgeCount };
     }
 
-    private void countRedAndBlackEdges(Node<Entry> n) {
-        if (n == null) return;
+    private int countRedAndBlackEdges(Node<Entry> n) {
+        if (n == null) return 0;
 
-        if (n.color == RED) redEdgeCount++;
+        int redEdgeCount = n.color == RED ? 1 : 0;
 
-        countRedAndBlackEdges(n.left);
-        countRedAndBlackEdges(n.right);
+        redEdgeCount += countRedAndBlackEdges(n.left) + countRedAndBlackEdges(n.right);
+
+        return redEdgeCount;
     }
+
 
     private Node<Entry> rotateLeft(Node<Entry> n) {
         Node<Entry> x = n.right;
@@ -104,6 +111,10 @@ public class RedBlackTree<Entry> {
     private int size(Node<Entry> n) {
         if (n == null) return 0;
         return n.size;
+    }
+
+    public int[] getPath() {
+        return path;
     }
 
 }
