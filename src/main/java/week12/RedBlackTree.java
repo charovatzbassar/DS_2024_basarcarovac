@@ -46,7 +46,7 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> {
     }
 
     private Node<Key, Value> put(Node<Key, Value> h, Key key, Value value) {
-        if (h == null) return new Node<Key, Value>(key, value, RED);
+        if (h == null) return new Node<>(key, value, RED);
 
         int cmp = key.compareTo(h.key);
 

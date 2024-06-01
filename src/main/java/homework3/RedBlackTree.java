@@ -93,7 +93,7 @@ public class RedBlackTree<Entry> {
 
     private boolean isRed(Node<Entry> n) {
         if (n == null) return false;
-        return n.color = RED;
+        return n.color == RED;
     }
 
     private int size(Node<Entry> n) {
