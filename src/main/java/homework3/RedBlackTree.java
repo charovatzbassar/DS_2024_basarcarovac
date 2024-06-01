@@ -7,24 +7,24 @@ public class RedBlackTree<Entry> {
     private Node<Entry> root;
     private static final boolean RED = true;
     private static final boolean BLACK = false;
-    private final int[] path = new int[]{0, 0};
+    private final int[] lastPath = new int[]{0, 0};
 
     public ArrayList<Entry> get(String searchableName) {
         Node<Entry> x = root;
-        path[0] = path[1] = 0;
+        lastPath[0] = lastPath[1] = 0;
 
         while (x != null) {
             int cmp = searchableName.compareTo(x.key);
             if (cmp < 0) {
                 x = x.left;
                 if (x.color == RED) {
-                    path[0]++;
+                    lastPath[0]++;
                 } else {
-                    path[1]++;
+                    lastPath[1]++;
                 }
             } else if (cmp > 0) {
                 x = x.right;
-                path[1]++;
+                lastPath[1]++;
             } else return x.values;
         }
 
@@ -58,6 +58,29 @@ public class RedBlackTree<Entry> {
         return n;
     }
 
+    public ArrayList<Entry> sort() {
+        Node<Entry> x = root;
+        ArrayList<Node<Entry>> arr = new ArrayList<>();
+        ArrayList<Entry> sorted = new ArrayList<>();
+
+        sort(arr, x);
+
+        for (Node<Entry> n : arr) {
+            sorted.addAll(n.values);
+        }
+
+
+        return sorted;
+    }
+
+    private void sort(ArrayList<Node<Entry>> arr, Node<Entry> n) {
+        if (n != null) {
+            sort(arr, n.left);
+            arr.add(n);
+            sort(arr, n.right);
+        }
+    }
+
     public int[] countRedAndBlackEdges() {
         Node<Entry> x = root;
 
@@ -75,7 +98,6 @@ public class RedBlackTree<Entry> {
 
         return redEdgeCount;
     }
-
 
     private Node<Entry> rotateLeft(Node<Entry> n) {
         Node<Entry> x = n.right;
@@ -113,8 +135,8 @@ public class RedBlackTree<Entry> {
         return n.size;
     }
 
-    public int[] getPath() {
-        return path;
+    public int[] getLastPath() {
+        return lastPath;
     }
 
 }

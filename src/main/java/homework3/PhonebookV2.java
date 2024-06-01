@@ -28,14 +28,23 @@ public class PhonebookV2 {
                 break;
             }
 
+            if (searchTerm.equals("sort")) {
+                ArrayList<Entry> sortedArr = entries.sort();
+
+                System.out.println("Sorting...");
+                FileUtils.writeToFile(sortedArr, "sorted_inorder.csv");
+                System.out.println("Sorted all entries successfully!");
+                continue;
+            }
+
             ArrayList<Entry> foundEntries = entries.get(searchTerm);
 
             if (foundEntries == null) {
                 System.out.println("No entries with name " + searchTerm + " exists in the phonebook.");
             } else {
                 System.out.println("Entries found: " + foundEntries.size());
-                System.out.println("\033[0;31mRed edges\033[0m on the path: " + entries.getPath()[0]);
-                System.out.println("Black edges on the path: " + entries.getPath()[1] + "\n");
+                System.out.println("\033[0;31mRed edges\033[0m on the path: " + entries.getLastPath()[0]);
+                System.out.println("Black edges on the path: " + entries.getLastPath()[1] + "\n");
                 for (Entry entry : foundEntries) {
                     System.out.println(entry);
                 }
