@@ -2,9 +2,9 @@ package homework4;
 
 public class FriendshipRecommendation implements Comparable<FriendshipRecommendation> {
     private String user;
-    private int recommendationStrength;
+    private double recommendationStrength;
 
-    public FriendshipRecommendation(String user, int recommendationStrength) {
+    public FriendshipRecommendation(String user, double recommendationStrength) {
         this.user = user;
         this.recommendationStrength = recommendationStrength;
     }
@@ -17,16 +17,24 @@ public class FriendshipRecommendation implements Comparable<FriendshipRecommenda
         this.user = user;
     }
 
-    public int getRecommendationStrength() {
+    public double getRecommendationStrength() {
         return recommendationStrength;
     }
 
-    public void setRecommendationStrength(int recommendationStrength) {
+    public void setRecommendationStrength(double recommendationStrength) {
         this.recommendationStrength = recommendationStrength;
     }
 
     @Override
     public int compareTo(FriendshipRecommendation o) {
-        return Integer.compare(this.recommendationStrength, o.getRecommendationStrength());
+        return Double.compare(this.recommendationStrength, o.getRecommendationStrength());
+    }
+
+    @Override
+    public String toString() {
+        return "FriendshipRecommendation{" +
+                "user='" + user + '\'' +
+                ", recommendationStrength=" + recommendationStrength +
+                '}';
     }
 }

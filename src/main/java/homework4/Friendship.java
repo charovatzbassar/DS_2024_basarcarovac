@@ -2,7 +2,7 @@ package homework4;
 
 public class Friendship {
     private String firstFriend, secondFriend;
-    private int friendshipStrength;
+    private double friendshipStrength;
 
     public Friendship(String firstFriend, String secondFriend, int friendshipStrength) {
         this.firstFriend = firstFriend;
@@ -26,11 +26,20 @@ public class Friendship {
         this.secondFriend = secondFriend;
     }
 
-    public int getFriendshipStrength() {
+    public double getFriendshipStrength() {
         return friendshipStrength;
     }
 
-    public void setFriendshipStrength(int friendshipStrength) {
+    public void setFriendshipStrength(double friendshipStrength) {
         this.friendshipStrength = friendshipStrength;
+    }
+
+    @Override
+    public String toString() {
+        return "Friendship{" +
+                "firstFriend='" + firstFriend + '\'' +
+                ", secondFriend='" + secondFriend + '\'' +
+                ", friendshipStrength=" + friendshipStrength +
+                '}';
     }
 }
