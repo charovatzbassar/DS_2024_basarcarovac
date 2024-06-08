@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
+    public static int amount = 10;
     public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
         System.out.println("Loading the social network...");
         SocialNetwork sn = new SocialNetwork(new Scanner(new File("social_network.csv")));
@@ -30,8 +31,9 @@ public class Main {
                 System.out.println("User " + choice + " does not exist in the network.");
             } else {
                 System.out.println("Total recommendations: " + recommendations.size());
-                for (FriendshipRecommendation r : recommendations) {
-                    System.out.println(r.getUser() + ": " + r.getRecommendationStrength());
+                System.out.println("Top " + amount + " recommendations based on friendship strength:");
+                for (int i = 0; i < amount; i++) {
+                    System.out.println(recommendations.get(i).getUser() + ": " + recommendations.get(i).getRecommendationStrength());
                 }
             }
 

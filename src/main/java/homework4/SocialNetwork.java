@@ -43,13 +43,14 @@ public class SocialNetwork {
     }
 
     public ArrayList<FriendshipRecommendation> recommendFriends(String user) {
+        if (!this.adj.containsKey(user)) {
+            return null;
+        }
+
         ArrayList<FriendshipRecommendation> friendshipRecommendations = new ArrayList<>();
 
         HashMap<String, Double> recommendationStrengths = new HashMap<>();
 
-        if (!this.adj.containsKey(user)) {
-            return null;
-        }
 
         for (Friendship friendship : this.adj.get(user)) {
             String currentFriend = getOtherFriend(user, friendship);
