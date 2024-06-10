@@ -17,12 +17,17 @@ public class SocialNetwork {
 
     public SocialNetwork(Scanner in) {
         this();
+        boolean isFirstLine = true;
         while (in.hasNextLine()) {
-            if (in.nextLine().contains("friendship_strength")) continue;
-            String[] line = in.nextLine().split(";");
-            Friendship friendship = new Friendship(line[0], line[1], Integer.parseInt(line[2]));
-            addUser(line[0]);
-            addUser(line[1]);
+            String line = in.nextLine();
+            if (isFirstLine) {
+                isFirstLine = false;
+                continue;
+            }
+            String[] parts = line.split(";");
+            Friendship friendship = new Friendship(parts[0], parts[1], Integer.parseInt(parts[2]));
+            addUser(parts[0]);
+            addUser(parts[1]);
             addFriendship(friendship);
         }
     }

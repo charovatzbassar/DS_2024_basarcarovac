@@ -14,7 +14,7 @@ public class Main {
         SocialNetwork sn = new SocialNetwork(new Scanner(new File("social_network.csv")));
         System.out.println("Network successfully loaded.");
         System.out.println("Total users: " + sn.getV());
-        System.out.println("Total friendships: " + sn.getE());
+        System.out.println("Total friendships: " + sn.getE() / 2);
         System.out.println("====================================\n");
         while (true) {
             System.out.print("Enter a name to recommend for, or -1 to exit: ");
